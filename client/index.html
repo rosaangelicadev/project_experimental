@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Aplicación Experimental</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="app" class="flex flex-col h-full">
+      <!-- Navbar fijo -->
+      <header class="glass-navbar shadow z-20 fixed top-0 left-0 right-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+              <button
+                id="menuToggle"
+                class="p-2 rounded flex items-center justify-center"
+                aria-label="Toggle sidebar"
+              >
+                <span class="material-icons text-3xl text-blue-400">menu</span>
+              </button>
+              <a href="#" class="text-xl font-semibold">Huubie</a>
+            </div>
+            <nav class="hidden md:flex items-center space-x-4">
+              <!-- futuros módulos aquí -->
+            </nav>
+            <div class="flex items-center space-x-2 ml-4">
+              <button id="themeToggle" class="text-sm p-2" title="Cambiar tema">
+                ☀️
+              </button>
+              <!-- Menú de perfil -->
+              <div class="relative">
+                <button
+                  id="profileBtn"
+                  class="w-10 h-10 rounded-full flex items-center justify-center bg-gradient-to-tr from-purple-400 to-blue-400 border-2 border-white shadow-lg focus:outline-none"
+                  title="Perfil"
+                >
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <circle cx="16" cy="12" r="7" fill="#b4aee8" />
+                    <ellipse cx="16" cy="24" rx="10" ry="6" fill="#b4aee8" />
+                    <circle cx="16" cy="12" r="6" fill="#fff" />
+                    <ellipse cx="16" cy="24" rx="9" ry="5" fill="#fff" />
+                  </svg>
+                </button>
+                <div
+                  id="profileMenu"
+                  class="absolute right-0 mt-2 w-64 bg-white dark:bg-[#1e293b] glass-main rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 p-6 z-50 hidden"
+                >
+                  <div class="flex flex-col items-center mb-4">
+                    <div
+                      class="w-20 h-20 rounded-full bg-gradient-to-tr from-purple-400 to-blue-400 flex items-center justify-center mb-2 border-4 border-white"
+                    >
+                      <svg
+                        width="48"
+                        height="48"
+                        viewBox="0 0 32 32"
+                        fill="none"
+                      >
+                        <circle cx="16" cy="12" r="7" fill="#b4aee8" />
+                        <ellipse
+                          cx="16"
+                          cy="24"
+                          rx="10"
+                          ry="6"
+                          fill="#b4aee8"
+                        />
+                        <circle cx="16" cy="12" r="6" fill="#fff" />
+                        <ellipse cx="16" cy="24" rx="9" ry="5" fill="#fff" />
+                      </svg>
+                    </div>
+                    <div
+                      class="text-lg font-bold text-gray-900 dark:text-gray-100"
+                    >
+                      Dev company
+                    </div>
+                    <div class="text-sm text-gray-500 dark:text-gray-300">
+                      Dev
+                    </div>
+                  </div>
+                  <a
+                    href="#"
+                    class="block py-2 text-center text-blue-600 dark:text-blue-400 hover:underline"
+                    >Mi Perfil</a
+                  >
+                  <a
+                    href="#"
+                    class="block py-2 text-center text-gray-700 dark:text-gray-300 hover:underline"
+                    >Configuración</a
+                  >
+                  <button
+                    id="logoutBtn"
+                    class="mt-4 w-full py-2 rounded bg-red-600 text-white font-semibold hover:bg-red-700 transition"
+                  >
+                    Cerrar sesión
+                  </button>
+                  <button
+                    id="closeProfileMenu"
+                    class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-xl"
+                  >
+                    &times;
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="flex flex-1 pt-16 overflow-hidden">
+        <!-- Sidebar -->
+        <aside
+          id="sidebar"
+          class="w-64 fixed left-0 top-16 bottom-0 md:block overflow-auto glass-sidebar p-4 transition-transform duration-300 ease-in-out transform translate-x-0 z-30"
+        >
+          <div class="p-4">
+            <div class="mb-8">
+              <span class="text-2xl font-bold text-white dark:text-gray-100"
+                >Huubie</span
+              >
+            </div>
+            <ul class="space-y-2">
+              <li>
+                <button
+                  id="ventasToggle"
+                  class="flex items-center w-full px-3 py-2 rounded hover:bg-blue-50 dark:hover:bg-blue-900 text-white dark:text-gray-100 focus:outline-none"
+                >
+                  <svg
+                    class="w-5 h-5 mr-2 text-blue-400"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M12 8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 10c-4.41 0-8-1.79-8-4V6c0-2.21 3.59-4 8-4s8 1.79 8 4v8c0 2.21-3.59 4-8 4z"
+                    />
+                  </svg>
+                  Ventas
+                  <svg
+                    id="ventasArrow"
+                    class="ml-auto w-4 h-4 transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M6 9l6 6 6-6" />
+                  </svg>
+                </button>
+                <ul id="ventasSubmenu" class="ml-8 mt-2 space-y-1 hidden">
+                  <li>
+                    <a
+                      href="#"
+                      class="block px-3 py-2 rounded bg-blue-900 text-white font-semibold"
+                      >Eventos</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      class="block px-3 py-2 rounded hover:bg-blue-50 dark:hover:bg-blue-900 text-white dark:text-gray-100"
+                      >Calendario</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="block px-3 py-2 rounded hover:bg-blue-50 dark:hover:bg-blue-900 text-white dark:text-gray-100"
+                  >Catálogos</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="block px-3 py-2 rounded hover:bg-blue-50 dark:hover:bg-blue-900 text-white dark:text-gray-100"
+                  >Reservación</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="flex items-center px-3 py-2 rounded hover:bg-blue-50 dark:hover:bg-blue-900 text-blue-400"
+                >
+                  <svg
+                    class="w-5 h-5 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M12 8v4l3 3" />
+                  </svg>
+                  Configuración
+                </a>
+              </li>
+            </ul>
+          </div>
+        </aside>
+
+        <!-- Contenido principal (dinámico) -->
+        <main id="mainContent" class="flex-1 overflow-auto p-6">
+          <div id="viewContainer" class="max-w-7xl mx-auto glass-main"></div>
+        </main>
+      </div>
+    </div>
+
+    <script>
+      // Control de tema: persiste en localStorage y aplica la clase .dark al elemento root
+      (function () {
+        const root = document.documentElement;
+        const btn = document.getElementById("themeToggle");
+        if (!btn) return;
+        function setTheme(mode) {
+          if (mode === "dark") {
+            root.classList.add("dark");
+            btn.textContent = "🌙";
+          } else {
+            root.classList.remove("dark");
+            btn.textContent = "☀️";
+          }
+          try {
+            localStorage.setItem("theme", mode);
+          } catch (e) {}
+        }
+        let saved = null;
+        try {
+          saved = localStorage.getItem("theme");
+        } catch (e) {}
+        if (saved === "light" || saved === "dark") {
+          setTheme(saved);
+        } else {
+          const prefersDark =
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches;
+          setTheme(prefersDark ? "dark" : "light");
+        }
+        btn.addEventListener("click", function () {
+          const isDark = root.classList.contains("dark");
+          setTheme(isDark ? "light" : "dark");
+        });
+      })();
+
+      // Menú de perfil desplegable
+      const profileBtn = document.getElementById("profileBtn");
+      const profileMenu = document.getElementById("profileMenu");
+      const closeProfileMenu = document.getElementById("closeProfileMenu");
+      profileBtn &&
+        profileBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          profileMenu.classList.remove("hidden");
+        });
+      closeProfileMenu &&
+        closeProfileMenu.addEventListener("click", () => {
+          profileMenu.classList.add("hidden");
+        });
+      document.addEventListener("click", (e) => {
+        if (
+          profileMenu &&
+          !profileMenu.contains(e.target) &&
+          e.target !== profileBtn
+        ) {
+          profileMenu.classList.add("hidden");
+        }
+      });
+
+      // Sidebar ocultable con transición izquierda-derecha usando el nuevo botón Material Icon
+      const sidebar = document.getElementById("sidebar");
+      const showSidebarBtn = document.getElementById("showSidebarBtn");
+      const menuToggle = document.getElementById("menuToggle");
+      function hideSidebar() {
+        sidebar.style.transform = "translateX(-100%)";
+        showSidebarBtn.style.opacity = 1;
+        showSidebarBtn.style.pointerEvents = "auto";
+      }
+      function showSidebar() {
+        sidebar.style.transform = "translateX(0)";
+        showSidebarBtn.style.opacity = 0;
+        showSidebarBtn.style.pointerEvents = "none";
+      }
+      menuToggle &&
+        menuToggle.addEventListener("click", function () {
+          if (sidebar.style.transform === "translateX(-100%)") {
+            showSidebar();
+          } else {
+            hideSidebar();
+          }
+        });
+      showSidebarBtn && showSidebarBtn.addEventListener("click", showSidebar);
+      // Ocultar sidebar en pantallas pequeñas al inicio
+      if (window.innerWidth < 768) {
+        hideSidebar();
+      }
+      window.addEventListener("resize", () => {
+        if (window.innerWidth < 768) {
+          hideSidebar();
+        } else {
+          showSidebar();
+        }
+      });
+
+      // Submenú expandible Ventas
+      const ventasToggle = document.getElementById("ventasToggle");
+      const ventasSubmenu = document.getElementById("ventasSubmenu");
+      const ventasArrow = document.getElementById("ventasArrow");
+      ventasToggle &&
+        ventasToggle.addEventListener("click", () => {
+          const expanded = ventasSubmenu.classList.contains("hidden");
+          ventasSubmenu.classList.toggle("hidden");
+          ventasArrow.style.transform = expanded
+            ? "rotate(180deg)"
+            : "rotate(0deg)";
+        });
+    </script>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
